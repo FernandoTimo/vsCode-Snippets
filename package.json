@@ -28,6 +28,18 @@
       {
         "language": "javascript",
         "path": "./snippets/javascript.code-snippets"
+      },
+      {
+        "language": "css",
+        "path": "./snippets/css.code-snippets"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/html.code-snippets"
+      },
+      {
+        "language": "gql",
+        "path": "./snippets/graphql.code-snippets"
       }
     ]
   }
