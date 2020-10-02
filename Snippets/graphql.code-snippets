@@ -1,0 +1,71 @@
+{
+  "Type Query": {
+    "prefix": "tq",
+    "body": ["type Query {", "\t${1:Name}: ${2:String}", "}"],
+    "description": "Crear un Query"
+  },
+  "Type Mutation": {
+    "prefix": "tm",
+    "body": [
+      "type Mutation {",
+      "\t${1:MutationName}(${2:value}: ${3:String!, }): ${4:Response}",
+      "}"
+    ],
+    "description": "Crear un Mutation"
+  },
+  "New Query": {
+    "prefix": "nq",
+    "body": ["${1:QueryName}: async ( $2 ) => {", "\treturn await $3", "}"],
+    "description": "Crear un Query"
+  },
+  "New Mutation": {
+    "prefix": "nm",
+    "body": "${1:MutationName}(${2:value}: ${3:String!, }): ${4:Response}",
+    "description": "Crear un Mutation"
+  },
+  "Value": {
+    "prefix": "v",
+    "body": "${1:value}: ${2:String!}, ",
+    "description": "Crear un Mutation"
+  },
+  "Type": {
+    "prefix": "t",
+    "body": ["type ${1:TypeName} {", "\t${2:Name}: ${3:String}", "\t$4", "}"],
+    "description": "type Query"
+  },
+  "Query": {
+    "prefix": "q",
+    "body": "Query ",
+    "description": "Query Graphql"
+  },
+  "Mutation": {
+    "prefix": "m",
+    "body": "Mutation ",
+    "description": "Mutation Graphql"
+  },
+  "ID": {
+    "prefix": "I",
+    "body": "ID!",
+    "description": "ID"
+  },
+  "String": {
+    "prefix": "S",
+    "body": "String!",
+    "description": "String"
+  },
+  "Float": {
+    "prefix": "F",
+    "body": "Float!",
+    "description": "Float"
+  },
+  "Int": {
+    "prefix": "I",
+    "body": "Int!",
+    "description": "Int"
+  },
+  "Boolean": {
+    "prefix": "B",
+    "body": "Boolean!",
+    "description": "Boolean"
+  }
+}
