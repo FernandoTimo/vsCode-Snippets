@@ -1,0 +1,34 @@
+{
+  "name": "timoideas-snippets",
+  "displayName": "Timoideas-Snippets",
+  "description": "Snippets para Javascript, CSS, HTML, GRAPQL",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.12.0"
+  },
+  "icon": "images/icon.png",
+  "publisher": "FernandoTimo",
+  "author": {
+    "name": "Fernando Timo"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/FernandoTimo/vsCode-Themes/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FernandoTimo/vsCode-Themes"
+  },
+  "bugs": {
+    "url": "https://github.com/FernandoTimo/vsCode-Themes/issues"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "./snippets/javascript.code-snippets"
+      }
+    ]
+  }
+}
