@@ -21,43 +21,50 @@
     "body": "required: [true, 'Este campo es requerido']",
     "description": "Required attribute"
   },
-  "Import GET/POST/PUT/DELETE Controllers": {
-    "prefix": "iGPPD",
+
+  "saveFile": {
+    "prefix": "saveFile",
     "body": [
-      " import { GET$1, POST$1, PUT$1, DELETE$1 } from '../controllers/$1'"
+      "const url = await SaveFile(req.files.${1:File}, {",
+      "\tvalidExt: ['${2:png}'],",
+      "\tpath: '${3:public/images}',",
+      "\tmaxSize: ${4:10000},",
+      "});"
     ],
-    "description": "Import GET/POST/PUT/DELETE Controllers "
+    "description": "Create a full Save File function"
   },
-  "Use GET/POST/PUT/DELETE Controllers": {
-    "prefix": "rGPPD",
+  "New FULL ROUTES-CONTROLLERS": {
+    "prefix": "nfr",
     "body": [
+      " import { GET$1, POST$1, PUT$1, DELETE$1 } from '../controllers/$1'",
       "routes.route('/$1').get(GET$1).post(POST$1).put(PUT$1).delete(DELETE$1)"
     ],
-    "description": "Use GET/POST/PUT/DELETE Controllers "
+    "description": "Create a CRUD routes with Controllers"
   },
-  "GET/POST/PUT/DELETE Controllers": {
-    "prefix": "cGPPD",
+  "New FULL Controllers": {
+    "prefix": "nfc",
     "body": [
       "export async function GET$1(req, res) {",
       "\tconst body = req.body",
       "\tres.status(200).json({ ok: true, body })",
       "}",
-      "export async function POST$1(req, res) {",
+      "export async function POST$1$2(req, res) {",
       "\tconst body = req.body",
       "\tres.status(200).json({ ok: true, body })",
       "}",
-      "export async function PUT$1(req, res) {",
+      "export async function PUT$1$2(req, res) {",
       "\tconst body = req.body",
       "\tres.status(200).json({ ok: true, body })",
       "}",
-      "export async function DELETE$1(req, res) {",
+      "export async function DELETE$1$2(req, res) {",
       "\tconst { id } = req.body;",
-      "\t$2.findByIdAndDelete(id, (err, data) => {",
+      "\t${3:Schema}.findByIdAndDelete(id, (err, data) => {",
       "\tif (err || !data) return res.status(200).json({ ok: false, incorrect: id });",
       "\tres.status(200).json({ ok: true, data });",
+      "\t});",
       "}"
     ],
-    "description": "GET/POST/PUT/DELETE Controllers "
+    "description": "Create a CRUD Controllers"
   },
   "Body Request": {
     "prefix": "body",
@@ -152,7 +159,7 @@
   },
   "<Section></Section>": {
     "prefix": "Section",
-    "body": ["<Section bg>$1</Section>"],
+    "body": ["<Section bg size={1}>$1</Section>"],
     "description": "Section Component"
   },
   "<Content></Content>": {
@@ -201,6 +208,8 @@
     "body": ["<div>$1</div>"],
     "description": "Div ClassName"
   },
+
+
   "Handler Toggle State": {
     "prefix": "hs",
     "body": ["const HandleState = () => {", "\tsetActive(!Active)", "}"],
@@ -312,6 +321,7 @@
     ],
     "description": "New Hook"
   },
+
   "Children": {
     "prefix": "chil",
     "body": ["{ children }"],
@@ -387,7 +397,6 @@
     ],
     "description": "Export Component"
   },
-  // SOCKETS
   "Socket emit": {
     "prefix": "se",
     "body": ["socket.emit('$1', ()", "}$3"],
@@ -475,6 +484,7 @@
     ],
     "description": "Create a fetch post/put body function"
   },
+
   "Get/Delete Fetch": {
     "prefix": "nffG",
     "body": [
@@ -539,10 +549,7 @@
     "body": ["'${1:token}': '${2:tokenValue}',"],
     "description": "Create pair token values"
   },
-  // Components
-  // Components
-  // Components
-  // Components
+
   "Component Landscape": {
     "prefix": "lan",
     "body": "<Landscape f={${1:1}}>$2</Landscape>",
