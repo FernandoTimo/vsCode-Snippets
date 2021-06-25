@@ -2,7 +2,7 @@
   "name": "timoideas-snippets",
   "displayName": "Timoideas - Snippets",
   "description": "Snippets para Javascript, CSS, HTML, GRAPQL",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "engines": {
     "vscode": "^1.12.0"
   },
