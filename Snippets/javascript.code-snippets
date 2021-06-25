@@ -21,43 +21,75 @@
     "body": "required: [true, 'Este campo es requerido']",
     "description": "Required attribute"
   },
-  "Import GET/POST/PUT/DELETE Controllers": {
-    "prefix": "iGPPD",
+
+  "saveFile": {
+    "prefix": "saveFile",
     "body": [
-      " import { GET$1, POST$1, PUT$1, DELETE$1 } from '../controllers/$1'"
+      "const url = await SaveFile(req.files.${1:File}, {",
+      "\tvalidExt: ['${2:png}'],",
+      "\tpath: '${3:public/images}',",
+      "\tmaxSize: ${4:10000},",
+      "});"
     ],
-    "description": "Import GET/POST/PUT/DELETE Controllers "
+    "description": "Create a full Save File function"
   },
-  "Use GET/POST/PUT/DELETE Controllers": {
-    "prefix": "rGPPD",
+  "New FULL ROUTES-CONTROLLERS": {
+    "prefix": "nfr",
     "body": [
+      " import { GET$1, POST$1, PUT$1, DELETE$1 } from '../controllers/$1'",
       "routes.route('/$1').get(GET$1).post(POST$1).put(PUT$1).delete(DELETE$1)"
     ],
-    "description": "Use GET/POST/PUT/DELETE Controllers "
+    "description": "Create a CRUD routes with Controllers"
   },
-  "GET/POST/PUT/DELETE Controllers": {
-    "prefix": "cGPPD",
+  "New FULL Controllers": {
+    "prefix": "nfc",
     "body": [
+      "export async function GET$1s(req, res) {",
+      "\ttry {",
+      "\tconst $1DB = await $1Schema$2.find()",
+      "\tres.status(200).json({ ok: true, data: $1DB })",
+      "\t} catch ({ message }) {",
+      "\t\tres.status(200).json({ ok: false, message });",
+      "\t}",
+      "}",
       "export async function GET$1(req, res) {",
-      "\tconst body = req.body",
-      "\tres.status(200).json({ ok: true, body })",
+      "\ttry {",
+      "\t\tconst { id } = req.params",
+      "\t\tconst $1DB = await $1Schema$2.findById(id)",
+      "\t\tres.status(200).json({ ok: true, data: $1DB })",
+      "\t} catch ({ message }) {",
+      "\t\tres.status(200).json({ ok: false, message });",
+      "\t}",
       "}",
       "export async function POST$1(req, res) {",
-      "\tconst body = req.body",
-      "\tres.status(200).json({ ok: true, body })",
+      "\ttry {",
+      "\t\tconst body = await ValidateObject$3(req.body, ['$4'])",
+      "\t\tconst $1 = new $1Schema$2(body)",
+      "\t\tconst $1DB = await $1.save()",
+      "\t\tres.status(200).json({ ok: true, data: $1DB })",
+      "\t} catch ({ message }) {",
+      "\t\tres.status(200).json({ ok: false, message });",
+      "\t}",
       "}",
       "export async function PUT$1(req, res) {",
-      "\tconst body = req.body",
-      "\tres.status(200).json({ ok: true, body })",
+      "\ttry {",
+      "\t\tconst { id } = req.params",
+      "\t\tconst body = await ValidateObject$3(req.body, ['$4'])",
+      "\t\tconst $1 = await $1Schema$2.findOneAndUpdate({ _id: id }, body, { new: true })",
+      "\t\tres.status(200).json({ ok: true, data: $1 })",
+      "\t} catch ({ message }) {",
+      "\t\tres.status(200).json({ ok: false, message });",
+      "\t}",
       "}",
       "export async function DELETE$1(req, res) {",
       "\tconst { id } = req.body;",
-      "\t$2.findByIdAndDelete(id, (err, data) => {",
+      "\t$1Schema$2.findByIdAndDelete(id, (err, data) => {",
       "\tif (err || !data) return res.status(200).json({ ok: false, incorrect: id });",
       "\tres.status(200).json({ ok: true, data });",
+      "\t});",
       "}"
     ],
-    "description": "GET/POST/PUT/DELETE Controllers "
+    "description": "Create a CRUD Controllers"
   },
   "Body Request": {
     "prefix": "body",
@@ -111,10 +143,15 @@
     "body": "res.status(200).json({ok:${1: true}, ${2:data}})",
     "description": "res status json"
   },
+  "Console.log Variable": {
+    "prefix": "clgg",
+    "body": "console.log($1, '${1:var}')",
+    "description": "Console log Variable"
+  },
   "Console.log": {
     "prefix": "clg",
     "body": "console.log('${1:hola mundo}')",
-    "description": "Importar solo el módulo"
+    "description": "Console log "
   },
   "Import From": {
     "prefix": "imp",
@@ -152,74 +189,69 @@
   },
   "<Section></Section>": {
     "prefix": "Section",
-    "body": ["<Section bg>$1</Section>"],
+    "body": ["<Section show size={1}>$1</Section>"],
     "description": "Section Component"
   },
-  "<Content></Content>": {
+  "Content Component": {
     "prefix": "Content",
-    "body": ["<Content bg center flex={1}>$1</Content>"],
+    "body": ["<Content show center flex={1}>$1</Content>"],
     "description": "Content Component"
+  },
+  "Content ClassName Component": {
+    "prefix": ".Content",
+    "body": ["<Content show center flex={1} className={style.$1}>$2</Content>"],
+    "description": "Content Component"
+  },
+  "Grid Component": {
+    "prefix": "Grid",
+    "body": ["<Grid center gap={2} columns={[2, 5]} rows={[2, 5]}>$1</Grid>"],
+    "description": "Grid Component"
+  },
+  "Grid ClassName Component": {
+    "prefix": ".Grid",
+    "body": [
+      "<Grid center gap={2} columns={[2, 5]} rows={[2, 5]} className={style.$1}>$2</Grid>"
+    ],
+    "description": "Grid Component"
   },
   "<Header></Header>": {
     "prefix": "Header",
-    "body": ["<Header bg center heigth={5} padding={0}>$1</Header>"],
+    "body": ["<Header bg center heigth={5}>$1</Header>"],
     "description": "Header Component"
   },
   "<Footer></Footer>": {
     "prefix": "Footer",
-    "body": ["<Footer bg center heigth={5} padding={0}>$1</Footer>"],
+    "body": ["<Footer bg center heigth={5}>$1</Footer>"],
     "description": "Footer Component"
   },
-  "<Modals></Modals>": {
-    "prefix": "Modals",
+  "<Emergente></Emergente>": {
+    "prefix": "<Emergente",
     "body": [
-      "<Modals >",
-      "\t<Modal background={'#fff3'} center active={true} blur={1}>$1</Modal>",
-      "</Modals>"
+      "<Emergente child={<${1:Component} />} active={[$1State, toggle$1State, true]} position={[null, null, null, null]}><button onClick={toggle$1State}>$1</button></Emergente>"
     ],
-    "description": "Modals Component"
+    "description": "Emergente Component"
   },
-  "<Modal></>": {
-    "prefix": "Modal",
+  "<Modal></Modal>": {
+    "prefix": "<Modal",
     "body": [
-      "<Modal background={'#fff3'} center active={true} blur={1}>$1</Modal>"
+      "<Modal bg={'#0003'} center active={[true, toggleModal, true]} blur={1} transition={0.3}>$1</Modal>"
     ],
     "description": "Modal Component"
-  },
-  "Div global ClassName": {
-    "prefix": ".",
-    "body": ["<div className='$1'>$2</div>"],
-    "description": "Div global ClassName"
-  },
-  "Div ClassName": {
-    "prefix": "..",
-    "body": ["<div className={${1:s}.$2}>$3</div>"],
-    "description": "Div ClassName"
   },
   "Div": {
     "prefix": "div",
     "body": ["<div>$1</div>"],
     "description": "Div ClassName"
   },
-  "Handler Toggle State": {
-    "prefix": "hs",
-    "body": ["const HandleState = () => {", "\tsetActive(!Active)", "}"],
-    "description": "Create Handler Toggle Function"
+  "Div ClassName": {
+    "prefix": ".",
+    "body": ["<div className='$1'>$2</div>"],
+    "description": "Div ClassName"
   },
-  "Use State": {
-    "prefix": "uses",
-    "body": "const [${1:State}, set${1:State}] = useState($2)",
-    "description": "Create useState() hook"
-  },
-  "handle Function": {
-    "prefix": "hf",
-    "body": ["const handler${1:Function} = ($2)=> {", "\t$3", "}"],
-    "description": "Create handle Function"
-  },
-  "ClassName Global": {
-    "prefix": "c",
-    "body": "className='$1'",
-    "description": "ClassName"
+  "Div ClassName Module": {
+    "prefix": "..",
+    "body": ["<div className={style.$2}>$3</div>"],
+    "description": "Div ClassName Module"
   },
   "H1": {
     "prefix": "h1",
@@ -228,8 +260,13 @@
   },
   "H1 className": {
     "prefix": ".h1",
-    "body": "<h1 className={${1:s}.$2}>$3</h1>",
+    "body": "<h1 className='$1'>$2</h1>",
     "description": "h1 className"
+  },
+  "H1 className Module": {
+    "prefix": "..h1",
+    "body": "<h1 className={style.$1}>$2</h1>",
+    "description": "h1 className Module"
   },
   "span": {
     "prefix": "sp",
@@ -255,6 +292,26 @@
     "prefix": ".label",
     "body": "<label className='$1'>$2</label>",
     "description": "Label ClassName"
+  },
+  "Label ClassName Module": {
+    "prefix": "..label",
+    "body": "<label className={style.$1}>$2</label>",
+    "description": "Label ClassName Module"
+  },
+  "Span": {
+    "prefix": "span",
+    "body": "<span>$1</span>",
+    "description": "Span"
+  },
+  "Span ClassName": {
+    "prefix": ".span",
+    "body": "<span className='$1'>$2</span>",
+    "description": "Span ClassName"
+  },
+  "Span ClassName Module": {
+    "prefix": "..span",
+    "body": "<span className={style.$1}>$2</span>",
+    "description": "Span ClassName Module"
   },
   "Form": {
     "prefix": "form",
@@ -291,11 +348,6 @@
     "body": "<button className={${1:s}.$2} onClick={$1}>$2</button>",
     "description": "Create a Buttom"
   },
-  "ClassName": {
-    "prefix": "cc",
-    "body": "className={${1:s}.$2}",
-    "description": "Create a Module ClassName"
-  },
   "Fragments": {
     "prefix": "<f",
     "body": ["<>", "$1", "</>"],
@@ -312,6 +364,7 @@
     ],
     "description": "New Hook"
   },
+
   "Children": {
     "prefix": "chil",
     "body": ["{ children }"],
@@ -352,11 +405,11 @@
   "Export Hook Component": {
     "prefix": "edc",
     "body": [
-      "import style$1 from './$1.module.css';",
+      "import style from './$1.module.css';",
       "function ${1:Component} () {",
       "\treturn (",
-      "\t\t<div className={style$1.$1}>",
-      "\t\t\t<h2>$1</h2>$2",
+      "\t\t<div>",
+      "\t\t\t<h2 className={style.Title}>$1</h2>",
       "\t\t</div>",
       "\t)",
       "}",
@@ -387,27 +440,30 @@
     ],
     "description": "Export Component"
   },
-  // SOCKETS
   "Socket emit": {
     "prefix": "se",
     "body": ["socket.emit('$1', ()", "}$3"],
     "description": "Socket emit"
   },
+  "API development env": {
+    "prefix": "API",
+    "body": ["process.env.NEXT_PUBLIC_API"],
+    "description": "API development env"
+  },
   "Next Pages Component": {
     "prefix": "np",
     "body": [
-      "import style$1 from 'styles/css/$1.module.css'",
-      "import { Head_Main } from 'heads/Header_Main';",
+      "import style from 'styles/pages/$1.module.css'",
+      "import Head_Main from 'heads/Main.head';",
       "import { Section, Body, Content } from 'components/Resources/Timoideas'",
       "export default function ${1:Index}() {",
-      "\t",
       "\t return(",
       "\t\t<>",
       "\t\t\t<Head_Main/>",
       "\t\t\t<Body>",
       "\t\t\t\t<Section>",
       "\t\t\t\t\t<Content center>",
-      "\t\t\t\t\t\t<h1 className={style$1.Title}>${2:Timoideas}</h1>",
+      "\t\t\t\t\t\t<h1 className={style.Title}>$1</h1>",
       "\t\t\t\t\t</Content>",
       "\t\t\t\t</Section>",
       "\t\t\t</Body>",
@@ -416,6 +472,30 @@
       "}$3"
     ],
     "description": "Next Pages Component"
+  },
+  "Fetch full methods": {
+    "prefix": "nff",
+    "body": [
+      "import fetch from 'node-fetch';",
+      "const API = process.env.NEXT_PUBLIC_API;",
+      "export const GET_${1:Fetcher} = (url = '/') =>",
+      "\tfetch(API + url, { method: 'GET' })",
+      "\t\t.then((res) => res.json())",
+      "\t\t.catch(({ message }) => console.log(message));",
+      "export const POST_${1:Fetcher} = (url) =>",
+      "\tfetch(API + url, { method: 'POST' })",
+      "\t\t.then((res) => res.json())",
+      ".catch(({ message }) => console.log(message));",
+      "export const PUT_${1:Fetcher} = (url) =>",
+      "\tfetch(API + url, { method: 'PUT' })",
+      "\t\t.then((res) => res.json())",
+      "\t\t.catch(({ message }) => console.log(message));",
+      "export const DELETE_${1:Fetcher} = (url) =>",
+      "\tfetch(API + url, { method: 'DELETE' })",
+      "\t\t.then((res) => res.json())",
+      "\t\t.catch(({ message }) => console.log(message));"
+    ],
+    "description": "Fetch full methods"
   },
   "Import Link": {
     "prefix": "il",
@@ -475,6 +555,7 @@
     ],
     "description": "Create a fetch post/put body function"
   },
+
   "Get/Delete Fetch": {
     "prefix": "nffG",
     "body": [
@@ -504,20 +585,45 @@
     ],
     "description": "Post/Put Fetch"
   },
-  "GetStaticProps": {
-    "prefix": "gsp",
+  "GetStaticPaths": {
+    "prefix": "gsPhats",
     "body": [
-      "import { $1 } from 'libraries/${2:fetch}'",
-      "export async function getStaticProps() {",
-      "\tconst dataObtenida = await ${1:Function}();",
+      "export async function getStaticPaths() {",
+      "\tconst array = ['1', '2'];",
+      "\tconst paths = array.map((data) => ({ params: { route: data } }));",
+      "\treturn {",
+      "\t\tpaths,",
+      "\t\tfallback: ${3:false}",
+      "\t};",
+      "}"
+    ],
+    "description": "Get Static Paths"
+  },
+  "GetStaticProps": {
+    "prefix": "gsProps",
+    "body": [
+      "export async function getStaticProps(context) {",
       "\treturn {",
       "\t\tprops: {",
-      "\t\t\tdataObtenida,",
+      "\t\t\tdata: 'data',",
       "\t\t},",
       "\t};",
       "}"
     ],
     "description": "Get Static Props"
+  },
+  "GetServerSideProps": {
+    "prefix": "gssProps",
+    "body": [
+      "export async function getServerSideProps(context) {",
+      "\treturn {",
+      "\t\tprops: {",
+      "\t\t\tdata: 'data',",
+      "\t\t},",
+      "\t};",
+      "}"
+    ],
+    "description": "Get Server Side Props"
   },
   "Pair Object values": {
     "prefix": "ov",
@@ -529,9 +635,39 @@
     "body": "${1:attr}={${2:valor}}",
     "description": "Create pair attributes values"
   },
+  "Ref Attribute": {
+    "prefix": "ref",
+    "body": "ref={ref${1:Ref}}",
+    "description": "Ref Attribute"
+  },
+  "ClassName Global Attribute": {
+    "prefix": "c",
+    "body": "className='$1'",
+    "description": "ClassName Global Attribute"
+  },
+  "ClassName Attribute": {
+    "prefix": "cc",
+    "body": "className={style.$1}",
+    "description": "ClassName Attribute"
+  },
+  "Padding Attribute": {
+    "prefix": "pd",
+    "body": "pd={${1:0.5}}",
+    "description": "Padding Attribute"
+  },
+  "OnClick Attribute": {
+    "prefix": "oc",
+    "body": "onClick={$1}",
+    "description": "OnClick Attribute"
+  },
+  "OnClick Attribute Function": {
+    "prefix": "occ",
+    "body": "onClick={() => {$1}}",
+    "description": "OnClick Attribute Function"
+  },
   "Pair Style values": {
     "prefix": "style",
-    "body": "style={${2:valor}}",
+    "body": "style={{${1:background}: '${2:#fa0}'}}",
     "description": "Create pair Style values"
   },
   "Pair Token values": {
@@ -539,10 +675,71 @@
     "body": ["'${1:token}': '${2:tokenValue}',"],
     "description": "Create pair token values"
   },
-  // Components
-  // Components
-  // Components
-  // Components
+  "Toggle State": {
+    "prefix": "ts",
+    "body": [
+      "const [$1, set$1] = useState(false)",
+      "const toggle${1:State} = () => {",
+      "\tset$1(!$1)",
+      "}"
+    ],
+    "description": "Create Handler Toggle Function"
+  },
+  "useLocalStorage": {
+    "prefix": "useLS",
+    "body": "const [${3:LocalStorage}, set$3] = useLocalStorage('${1:key}', '${2:value}')",
+    "description": "useLocalStorage"
+  },
+  "useLocalStorage Documented": {
+    "prefix": "useLS-documented",
+    "body": "const [${3:LocalStorage}, set$3] = useLocalStorage('${1:key(String)}', '${2:value(String)}')",
+    "description": "useLocalStorage Documented"
+  },
+  "useSessionStorage": {
+    "prefix": "useSS",
+    "body": "const [${3:SessionStorage}, set$3] = useSessionStorage('${1:key}', '${2:value}')",
+    "description": "useSessionStorage"
+  },
+  "useSessionStorage Documented": {
+    "prefix": "useSS-documented",
+    "body": "const [${3:SessionStorage}, set$3] = useSessionStorage('${1:key(String)}', '${2:value(String)}')",
+    "description": "useSessionStorage Documented"
+  },
+  "useCounter": {
+    "prefix": "useC",
+    "body": "const Counter = useCounter(${1:4286}, ${2:0}, ${3:true}, ${4:14}, ${5:14})",
+    "description": "useCounter"
+  },
+  "useCounter Documented": {
+    "prefix": "useC-documented",
+    "body": "const Counter = useCounter(${1:max(Number)}, ${2:min(Number)}, ${3:start(Boolean)}, ${2:speed(Number)}, ${2:increment(Number)})",
+    "description": "useCounter Documented"
+  },
+  "useState": {
+    "prefix": "useS",
+    "body": "const [${1:State}, set${1:State}] = useState($2)",
+    "description": "Create useState hook"
+  },
+  "useEffect": {
+    "prefix": "useE",
+    "body": ["useEffect(() => {", "\t$1", "\treturn () => {}", "}, [$2])"],
+    "description": "Create useEffect hook"
+  },
+  "useRef": {
+    "prefix": "useR",
+    "body": ["const ref${1:Ref} = useRef()"],
+    "description": "Create useRef hook"
+  },
+  "New Function": {
+    "prefix": "nf",
+    "body": ["const ${1:Function} = ($2) => {", "\t$3", "}"],
+    "description": "Create Function"
+  },
+  "handle Function": {
+    "prefix": "hf",
+    "body": ["const handler${1:Function} = ($2) => {", "\t$3", "}"],
+    "description": "Create handle Function"
+  },
   "Component Landscape": {
     "prefix": "lan",
     "body": "<Landscape f={${1:1}}>$2</Landscape>",
@@ -557,26 +754,6 @@
     "prefix": "Theme",
     "body": ["const {Theme, setTheme, isTheme} = useTheme()"],
     "description": "Import Theme"
-  },
-  "Theme _00": {
-    "prefix": "00",
-    "body": "Theme._00",
-    "description": "Theme _00"
-  },
-  "Theme _01": {
-    "prefix": "01",
-    "body": "Theme._01",
-    "description": "Theme _01"
-  },
-  "Theme _02": {
-    "prefix": "02",
-    "body": "Theme._02",
-    "description": "Theme _02"
-  },
-  "Theme _03": {
-    "prefix": "03",
-    "body": "Theme._03",
-    "description": "Theme _03"
   },
   "Comments arrow": {
     "prefix": "<>",

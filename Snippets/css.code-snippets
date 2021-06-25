@@ -1,4 +1,9 @@
 {
+  "Default Styles": {
+    "prefix": "ds",
+    "body": [".Title {", "\tfont-size: 2vh;", "\ttext-align: center;", "}"],
+    "description": "Default styles"
+  },
   "Container": {
     "prefix": ".c",
     "body": [
@@ -24,6 +29,55 @@
       "}"
     ],
     "description": "Default next Content"
+  },
+  "variable": {
+    "prefix": "--",
+    "body": "var(--c${1:00})",
+    "description": "Set Backgound"
+  },
+  "Transform Scale": {
+    "prefix": "ts",
+    "body": ["transform: scale(${1:1.1});"],
+    "description": "Set Transform Scale"
+  },
+  "Font Size": {
+    "prefix": "fs",
+    "body": ["font-size: 1.${1:5}vh;", "line-height: 1.${1:5}vh;"],
+    "description": "Set Font Size"
+  },
+  "Backgound": {
+    "prefix": "bg",
+    "body": "background: var(--c${1:20});",
+    "description": "Set Backgound"
+  },
+  "Backgound Hexadecimal": {
+    "prefix": "bgg",
+    "body": "background: #${1:fa0};",
+    "description": "Set Backgound Hexadecimal"
+  },
+  "Backgound Hexadecimal Gradient": {
+    "prefix": "bggg",
+    "body": "background: linear-gradient(#${1:fa0}, #${2:4a8});",
+    "description": "Set Backgound Hexadecimal Gradient"
+  },
+  "Foreground": {
+    "prefix": "fg",
+    "body": "color: var(--c${1:00});",
+    "description": "Set Foreground"
+  },
+  "Foreground Hexadecimal": {
+    "prefix": "fgg",
+    "body": "color: #${1:fa0};",
+    "description": "Set Foreground Hexadecimal"
+  },
+  "Foreground Hexadecimal Gradient": {
+    "prefix": "fggg",
+    "body": [
+      "background: linear-gradient(#${1:fa0}, #${2:4a8});",
+      "background-clip: text;",
+      "-webkit-text-fill-color: transparent;"
+    ],
+    "description": "Set Foreground Hexadecimal Gradient"
   },
   "Grid Template Rows": {
     "prefix": "gtr",
@@ -56,7 +110,7 @@
   },
   "Shadow": {
     "prefix": "bs",
-    "body": "box-shadow: 0 0 1vh #dadada;",
+    "body": "box-shadow: 0 0 1vh #${1:3333};",
     "description": "Shadow"
   },
   "Flex": {
@@ -68,6 +122,11 @@
     "prefix": "fdc",
     "body": "flex-direction: column;",
     "description": "Flex direction"
+  },
+  "Margin Padding": {
+    "prefix": "mp",
+    "body": ["margin: ${1: 1}vh;", "padding: ${1: 1}vh;"],
+    "description": "Margin + Padding"
   },
   "Width Height": {
     "prefix": "wh",
@@ -105,7 +164,7 @@
   },
   "Border": {
     "prefix": "border",
-    "body": "border: .2vh solid #000;",
+    "body": "border: .2vh solid #${1:000};",
     "description": "Border"
   },
   "Pointer Events Visible": {
